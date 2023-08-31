@@ -8,35 +8,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <p class="PageHeader">Kristians Valgomat</p>
-        <div class="ValgomatCard">
             <div class="ValgomatContent">
-                <p class="ValgomatText">Jeg elsker Skatt!!!!</p>
+                <p class="ValgomatSporsmal" id="question">Jeg elsker Skatt!!!!</p>
                 <div class="ValgomatValg">
                     <div class="ValogmatBtn">
-                        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                        <input type="radio" id="javascript" name="fav_language" value="HeltUenig">
                         <label for="javascript">Helt uenig</label>
                     </div>
                     <div class="ValogmatBtn">
-                        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                        <input type="radio" id="javascript" name="fav_language" value="Uenig">
                         <label for="javascript">Uenig</label>
                     </div>
                     <div class="ValogmatBtn">
-                        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                        <input type="radio" id="javascript" name="fav_language" value="LittEnig">
                         <label for="javascript">Litt enig</label>
                     </div>
                     <div class="ValogmatBtn">
-                        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+                        <input type="radio" id="javascript" name="fav_language" value="HeltEnig">
                         <label for="javascript">Helt enig</label>
                     </div>
                 </div>
-                <input class="NavBtn" type="submit" value="Tilbake">
-                <input class="NavBtn" type="submit" value="Neste">
+                <div class="nav">
+                    <input class="NavBtn" id="btnBack" type="submit" value="Tilbake">
+                    <input class="NavBtn" id="btnNext" type="submit" value="Neste">
+                </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
