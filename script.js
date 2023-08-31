@@ -5,7 +5,6 @@ let question = [
 ]
 
 
-
 i = 0;
 
 document.getElementById("question").innerText = question[i];
@@ -14,16 +13,17 @@ document.getElementById("question").innerText = question[i];
 
 document.getElementById("btnNext").onclick = function () {
     if(i == question.length) {
-        console.log("Du er ferdig");
         return;
     }
     else if(i == question.length -1) {
-        console.log("Du er ferdig");
         return;
     }
     console.log(i);
     i++;
     document.getElementById("question").innerText = question[i];
+
+    svar = document.querySelector("input:checked").value
+    console.log(svar);
 }
 
 document.getElementById("btnBack").onclick = function () {
@@ -31,8 +31,9 @@ document.getElementById("btnBack").onclick = function () {
         console.log("kys");
        return;
     }
-    else{
-        i--;
-        document.getElementById("question").innerText = question[i];
-    }
+    i--;
+    document.getElementById("question").innerText = question[i];
+    svar = document.querySelector("input:checked").value;
+    console.log(i);
+    console.log(svar);
 }
