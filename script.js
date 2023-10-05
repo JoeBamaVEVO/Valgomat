@@ -1,142 +1,119 @@
-const questions = [
-    {
-        question: "Høy skatt er bra for samfunnet",
-        heltEnig:{
-            Høyre: 0,
-            Rødt: 2,
-            Frp : 0,
-        },
-        Littenig: {
-            Høyre: 0,
-            Rødt: 1,
-            Frp: 0,
-        },
-        Littuenig: {
-            Høyre: 2,
-            Rødt: 0,
-            Frp: 1,
-        },
-        heltUenig: {
-            Høyre: 1,
-            Rødt: 0,
-            Frp: 2,
-        }
-    },
-    {
-        question: "Ost er godt!",
-        heltEnig:{
-            Høyre: 0,
-            Rødt: 2,
-            Frp : 0,
-        },
-        Littenig: {
-            Høyre: 0,
-            Rødt: 1,
-            Frp: 0,
-        },
-        Littuenig: {
-            Høyre: 2,
-            Rødt: 0,
-            Frp: 1,
-        },
-        heltUenig: {
-            Høyre: 1,
-            Rødt: 0,
-            Frp: 2,
-        }
-    },
+import { questions } from "./spørsmål.js";
 
-]
+console.log(questions);
+// Du kan legge til flere spørsmål på samme måte som de over.
+
 
 let partyScores = {
+    Ap: 0,
     Høyre: 0,
     Frp: 0,
-    Rødt: 0
-}
-
-
+    SV: 0,
+    Venstre: 0,
+    Sp: 0,
+    KrF: 0,
+    MDG: 0,
+    Rødt: 0,
+};
 
 // Definerer i som 0 og skriver ut første spørsmål
 let i = 0;
 document.getElementById("SpørsNum").innerText = "Spørsmål " + (i + 1) + " av " + questions.length + ":";
 document.getElementById("question").innerText = questions[i].question;
 
-// Navigering fram mellom spørsmål
-document.getElementById("btnNext").addEventListener("click", function (){
-        console.log(i);
-        console.log("test length " + questions.length);
-        //Sjekker om det er siste spørsmål
-        if(i == questions.length) {
-            return;
-        }
-        else if(i == questions.length -1) {
-            result();
-            return;
-        }       
-        // plusser i og skriver ut neste spørsmål
-        i++;
-        document.getElementById("question").innerText = questions[i].question;
-        document.getElementById("SpørsNum").innerText = "Spørsmål " + (i + 1) + " av " + questions.length + ":";
-        if(localStorage.getItem(questions[i].question)){
-            document.getElementById(localStorage.getItem(questions[i].question)).checked = true;
-        }
-
-});
-// Navigering bakover mellom spørsmål
-document.getElementById("btnBack").addEventListener('click', function () {
-    if(i <= 0) {
-        console.log("Du er på første spørsmål");
-       return;
-    }
-    i--;
-    document.getElementById("question").innerText = questions[i].question;
-    document.getElementById("SpørsNum").innerText = "Spørsmål " + (i + 1) + " av " + questions.length + ":";
-
-
-    if(localStorage.getItem(questions[i].question)){
-        document.getElementById(localStorage.getItem(questions[i].question)).checked = true;
-    }
-});
-
 // Sjekker om du har svart på spørsmålet
 document.getElementById("HeltUenig").addEventListener("click", function () {
-    let svar = "HeltUenig";
+    checkChoice(4); // Pass the choice as an argument to the function
+    setTimeout(() => {
+        NesteSpørsmål();
+        document.getElementById("HeltEnig").checked = false;
+    }, 200);
     console.log("HeltUenig");
-    checkChoice(svar)
 });
+
 document.getElementById("Uenig").addEventListener("click", function () {
-    let svar = "Uenig";
+    checkChoice(3);
+    setTimeout(() => {
+        NesteSpørsmål();
+        document.getElementById("HeltEnig").checked = false;
+    }, 200);
     console.log("Uenig");
-    checkChoice(svar)
-
 });
+
 document.getElementById("LittEnig").addEventListener("click", function () {
-    let svar = "LittEnig";
+    checkChoice(2);
+    setTimeout(() => {
+        NesteSpørsmål();
+        document.getElementById("HeltEnig").checked = false;
+    }, 200);
     console.log("Enig");
-    checkChoice(svar)
 });
+
 document.getElementById("HeltEnig").addEventListener("click", function () {
-    let svar = "HeltEnig";
+    checkChoice(1);
+    setTimeout(() => {
+        NesteSpørsmål();
+        document.getElementById("HeltEnig").checked = false;
+    }, 200);
     console.log("HeltEnig");
-    checkChoice(svar)
 });
 
-function checkChoice(svar) {
-    localStorage.setItem("question" + [i], svar);
-}
-
-function result(){
-    const items = { ...localStorage };
-    let i = 0;
-    while(i < questions.length){
-        let answer = Object.values(items)[i]; 
-        console.log(answer);
-        const heltEnigValue = questions[0].heltEnig;
-        console.log(heltEnigValue);
-        let party = Object.keys(heltEnigValue)[0];
-        i++;
+// Navigering fram mellom spørsmål
+function NesteSpørsmål() {
+    console.log(i);
+    console.log("test length " + questions.length);
+    //Sjekker om det er siste spørsmål
+    if (i == questions.length - 1) {
+        result();
+        return;
     }
-    console.log(items);
+    // sjekker svaret og legger det til i array
+    i++;
+    document.getElementById("question").innerText = questions[i].question;
+    document.getElementById("SpørsNum").innerText = "Spørsmål " + (i + 1) + " av " + questions.length + ":";
+    if (localStorage.getItem(questions[i].question)) {
+        document.getElementById(localStorage.getItem(questions[i].question)).checked = true;
+    }
+};
+
+function checkChoice(choice) {
+    console.log(Object.values(questions[i])[choice]);
+    let test = Object.values(questions[i])[choice];
+
+    for (let party in partyScores) {
+        partyScores[party] += test[party];
+    }
+    console.log(partyScores);
 }
 
+function result() {
 
+    // Convert the partyScores object into an array of key-value pairs
+    const partyScoresArray = Object.entries(partyScores);
+
+    // Sort the array in descending order based on the values (scores)
+    partyScoresArray.sort((a, b) => b[1] - a[1]);
+
+    // Convert the sorted array back to an object
+    const sortedPartyScores = Object.fromEntries(partyScoresArray);
+
+    console.log(JSON.stringify(sortedPartyScores, null, 2));
+
+    DisplayResult(sortedPartyScores)
+}
+
+function DisplayResult(sortedPartyScores){
+    let Vcontent = document.getElementById('VC')
+    
+    let result = document.createElement('p')
+
+    result.innerText = "Resultat"
+
+    Vcontent.appendChild(result)
+
+    for (let party in sortedPartyScores) {
+        let partyResult = document.createElement('p')
+        partyResult.innerText = party + ": " + sortedPartyScores[party]
+        Vcontent.appendChild(partyResult)
+    }
+}
