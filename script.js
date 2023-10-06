@@ -1,4 +1,4 @@
-import { questions } from "./spørsmål.js";
+import { questions } from "./spørsmal.js";
 
 console.log(questions);
 // Du kan legge til flere spørsmål på samme måte som de over.
@@ -71,19 +71,16 @@ function NesteSpørsmål() {
     i++;
     document.getElementById("question").innerText = questions[i].question;
     document.getElementById("SpørsNum").innerText = "Spørsmål " + (i + 1) + " av " + questions.length + ":";
-    if (localStorage.getItem(questions[i].question)) {
-        document.getElementById(localStorage.getItem(questions[i].question)).checked = true;
-    }
 };
 
 function checkChoice(choice) {
-    console.log(Object.values(questions[i])[choice]);
-    let test = Object.values(questions[i])[choice];
+    const AnsArr = Object.values(questions[i])[choice];
 
     for (let party in partyScores) {
-        partyScores[party] += test[party];
+        console.log("her er partyscores " + partyScores[party])
+        console.log("her er AnsArr " + AnsArr[party])
+        partyScores[party] += AnsArr[party] ?? 0;
     }
-    console.log(partyScores);
 }
 
 function result() {
@@ -103,17 +100,41 @@ function result() {
 }
 
 function DisplayResult(sortedPartyScores){
+    // Fjerner alt innhold i div
+    const myNode = document.getElementById("VC");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.lastChild);
+    }
+    // Lager nytt innhold med resultatene dine
     let Vcontent = document.getElementById('VC')
+
+    let ResultDiv = document.createElement('div')
+
+    ResultDiv.setAttribute('class', 'ResultDiv')
+
+    Vcontent.appendChild(ResultDiv)
     
-    let result = document.createElement('p')
+    let result = document.createElement('h1')
 
     result.innerText = "Resultat"
 
-    Vcontent.appendChild(result)
+    ResultDiv.appendChild(result)
 
+    // Lager en liste med partiene og resultatene og legger det til i ResultDiv
     for (let party in sortedPartyScores) {
         let partyResult = document.createElement('p')
         partyResult.innerText = party + ": " + sortedPartyScores[party]
-        Vcontent.appendChild(partyResult)
+        ResultDiv.appendChild(partyResult)
     }
+
+    let button = document.createElement('button')
+    button.innerText = "Ta testen på nytt"
+    button.setAttribute('id', 'NyTest')
+    button.setAttribute('class', 'NyTest')
+    ResultDiv.appendChild(button)
+
+    button.addEventListener('click', function () {
+        location.reload(true);
+    })
 }
+

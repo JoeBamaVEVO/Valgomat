@@ -1,11 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Linear+B&family=Poppins:ital,wght@1,500&family=Roboto:wght@300;400&display=swap');
+
 .PageHeader{
     text-align: center;
-    font-size: 28px;
+    font-size: 35px;
+    font-family: 'Noto Sans Linear B', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;  
+    color: rgb(10, 1, 1);
+    font-weight: 600;
 }
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(226, 165, 32);
+    background-color: white;
     color: rgb(0, 0, 0);
     margin: 0;
 }
@@ -15,8 +22,10 @@ body{
 .ValgomatContent{
     margin: auto;
     width: 40%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(156, 181, 202);
     padding: 20px;
+    border-radius: 25px;
+    box-shadow: 10px 10px 10px rgb(0, 0, 0, 0.4);
 }
 
 /* Nav style */
@@ -70,4 +79,20 @@ input[type=radio]{
     align-items: center;
 }
 
+.ResultDiv{
+    text-align: center;
+}
 
+.NyTest{
+    border-style: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(0, 0, 255, 0.801);
+    color: white;
+    transition: 0.2s;
+}
+
+.NyTest:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
